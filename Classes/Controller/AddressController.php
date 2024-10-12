@@ -637,8 +637,9 @@ class AddressController extends AbstractController
         $res = $this->addressRepository->findAtoz($field, $this->addresstable, $categories, $pages);
 
         // Build two dimensional result array
+        // changed to 0 to 9 array by 3plusx
         $atoz = array();
-        foreach (range("A", "Z") as $char) {
+        foreach (range("0", "9") as $char) {
             $atoz[] = array("character" => $char, "active" => (array_search($char, $res) !== false));
         }
 

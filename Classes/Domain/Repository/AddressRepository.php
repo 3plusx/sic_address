@@ -179,9 +179,20 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query = $this->createQuery();
 
         // Build A to Z constraint
+        // 3plusx hack für ausgabe 0 - 9 postleitzahlen
         $constraints = array();
-        if ($atozField && !($atozField === "none") && $atozvalue && strlen(trim($atozvalue)) === 1)
+        if ($atozField && !($atozField === "none") && $atozvalue && strlen(trim($atozvalue)) === 1) {
             $constraints[] = $query->like($atozField, $atozvalue.'%');
+        }
+
+        // 3plusx hack für ausgabe 0 - 9 postleitzahlen Alle ausgeben
+        if ($atozvalue == 'Alle' || $atozvalue == 'All') {
+            $constraints[] = $query->like($atozField, '%');
+        }
+        // 3plusx hack für ausgabe 0 - 9 postleitzahlen auch 0 ausgeben
+        if ($atozvalue == '0') {
+            $constraints[] = $query->like($atozField, '0%');
+        }
 
         // Build distance constraint
         if ($distanceField && !($distanceField === "none") && strlen($distanceValue) > 0) {
