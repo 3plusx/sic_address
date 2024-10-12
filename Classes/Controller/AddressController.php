@@ -309,7 +309,7 @@ class AddressController extends AbstractController
             ]);
         }
 
-        if($this->settings['categoryType'] !== 'groups') {
+        if($this->settings['categoryType'] !== 'groups' || false) {
             // Count adresses per category phase 1
             $categorycounts = [];
             foreach ($addresses as $adress) {
